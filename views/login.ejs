@@ -22,7 +22,12 @@
             <div class="row g-0">
               <div class="col-lg-6">
                 <div class="card-body p-md-5 mx-md-4">
-  
+                  <% if (message) { %>
+                   <div class="alert alert-dismissable fade show alert-<%= message.type %>" role="alert">
+                      <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <strong><%= message.message %></strong>
+                    </div>
+                  <% } %>
                   <div class="text-center">
                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
                       style="width: 185px;" alt="logo">

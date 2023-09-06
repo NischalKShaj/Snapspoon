@@ -8,7 +8,7 @@ const session = require('express-session')
 const adminRouter = require('./routes/admin')
 const loginRouter = require('./routes/login')
 const signupRouter = require('./routes/signup')
-
+const adminDashRouter = require('./routes/adminDashboard')
 const app = express()
 
 // connecting the mongodb server
@@ -52,7 +52,7 @@ app.use('/',loginRouter)
 app.use('/home',loginRouter)
 app.use('/signup',signupRouter)
 app.use('/admin',adminRouter)
-app.use('/adminDashboard',adminRouter)
+app.use('/adminDashboard',adminDashRouter)
 
 // connecting to the server
 app.listen(port,()=>{
