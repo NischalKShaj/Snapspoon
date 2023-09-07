@@ -15,9 +15,9 @@ router.post('/',async(req, res)=>{
         const check = await collection.findOne({email : req.body.email ,password : req.body.password})  //checking whether the value is present in the database
         console.log(check);
         if(check.email === req.body.email && check.password === req.body.password){ // checking whether the value entered and the value in the database same
-            res.render('home');
+            res.render('homepage');
         }
-    }catch{                                                  //if the user is not found then login page will be rendered
+    }catch{                          //if the user is not found then login page will be rendered
         res.redirect('/')
     }
 })

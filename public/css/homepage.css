@@ -1,0 +1,34 @@
+body{
+    background: linear-gradient(violet,blue,violet);
+}
+.logout{
+    background-color: linear-gradient(violet,blue,violet);
+    padding: 30px;
+
+}
+.logout button{
+   height: 60px;
+   width: 120px;
+    border-radius: 27px;
+    background-color: crimson;
+    border-color: transparent;
+}
+.logout button:hover{
+    background-color: blueviolet;
+}
+/* Adjust the size of the images */
+.card-img {
+ 
+  width: 650px; /* You can set the desired width */
+  height: auto; /* This will maintain the aspect ratio */
+}
+
+.card{
+    background: linear-gradient(blue, violet, blue);
+}
+.card-title{
+    color:white
+}
+.card-text{
+    color : white;
+}
