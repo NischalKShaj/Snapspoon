@@ -29,8 +29,8 @@ app.use(express.json())
 
 // session handleing 
 app.use(session({
-    secret : 'mysecretkey',
-    saveUninitialized : true,
+    secret : ['mysecretkey','ujtyyt','sffddfg','dgdgdg','gyrtyr'],
+    saveUninitialized : false,
     resave : false
 }))
 
@@ -52,10 +52,11 @@ app.set('views',path.join(__dirname,'views'))
 app.use('/',loginRouter)
 app.use('/home',loginRouter)
 app.use('/signup',signupRouter)
-app.use('/admin',adminRouter)
 // app.use('/adminDashboard',adminRouter)
-app.use('/adminDashboard',adminDashRouter)
-app.use('/adminDashboard/update',adminDashRouter)
+// app.use('/adminDashboard',adminRouter)
+// app.use('/adminDashboard',adminDashRouter)
+// app.use('/adminDashboard/update',adminDashRouter)
+app.use('/admin',adminDashRouter)
 
 
 // connecting to the server

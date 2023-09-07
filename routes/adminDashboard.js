@@ -4,6 +4,21 @@ const collection = require('../models/mongodb')
 
 const router = express.Router()
 
+router.get('/',async(req, res)=>{
+   
+    if(req.session.adminEntered){
+        const users = await collection.find()
+        const message1 = req.session.message1
+        req.session.message1 = null
+        
+        res.render('adminDashboard',{users , message1})
+    }else{
+        res.render('admin')
+
+    }
+    
+   
+})
 // setting the admin credentials
 const credentials = {
     email : 'Nischal@gmail.com',
@@ -12,25 +27,27 @@ const credentials = {
 }
 
 // rendering the admin dashboard
-router.post('/',(req, res)=>{
+router.post('/',async(req, res)=>{
+    req.session.data1=await collection.find()
     const {email, password} = req.body
     console.log(email, password);
-    if(email === credentials.email && password === credentials.password){
+    try{
+        if(email === credentials.email && password === credentials.password){
+            req.session.adminEntered=req.body.email
+            res.redirect('/admin')
+        }
+        else{
+            console.log(ss);
 
-        collection.find()
-        .exec()
-        .then(users=>{
-            res.render('adminDashboard',{credentials, users :users })
-            console.log("valid credentials of admin");
-        })
-        .catch (err=>{
-            console.error('Error querying users:', err);
-            res.status(500).send('Internal Server Error');
-        })
-    } else {
-        res.redirect('/')
-        console.log("Invalid credentials of the admin");
+            res.redirect('/')
+        }
     }
+    catch{
+        console.log(ss);
+
+        res.send('errrr')
+    }
+
 })
 
 // editing the user
@@ -39,14 +56,14 @@ router.get('/edit/:id',(req, res)=>{
     collection.findById(id)
     .then(user=>{
         if(!user){
-            res.redirect('/adminDashboard')
+            res.redirect('/admin')
         } else {
             res.render('edit_users',{user : user})
         }
     })
     .catch(err =>{
         console.log("Error in finding the user : ", err);
-        res.redirect('/adminDashboard')
+        res.redirect('/admin')
     })
 })
 
@@ -67,7 +84,7 @@ router.post('/update/:id', async (req, res) => {
                 type : 'success',
                 message : 'User updated sucessfully'
             }
-            res.redirect('/adminDashboard')
+            res.redirect('/admin')
         }
     }catch(err){
         console.log('Error updating the user : ',err);
@@ -80,7 +97,7 @@ router.get('/',(req, res)=>{
     collection.find()
     .exec()
     .then(users=>{
-        res.render('adminDashboard',{credentials,users :users })
+        res.redirect('/admin')
     })
     .catch (err=>{
         console.error('Error querying users:', err);
@@ -88,34 +105,72 @@ router.get('/',(req, res)=>{
     })
 })
 
-
-router.post('/add',(req, res)=>{
-    res.redirect('/signup')
+router.get('/add',(req ,res)=>{
+    res.render('adminsign')
 })
 
-// deleting the user
+router.post('/add', async(req, res)=>{
+    console.log(req.body.email,req.body.password);
+     const data2 = {
+        name : req.body.name,
+        password : req.body.password,
+        email : req.body.email,
+        phone : req.body.phone,
+    }
+    // console.log(data);
+    await collection.insertMany([data2]);
 
+
+    // rendering the login page
+
+    req.session.message1 = {
+        type : 'success',
+        message : 'Registration successfull'
+    }
+    res.redirect('/admin');
+})
+
+
+// deleting the user
+// router.get('/admin',(req, res)=>{
+//     res.render('adminsign')
+// })
 router.get('/delete/:id', async (req, res) => {
     try {
       const id = req.params.id;
-      const result = await collection.findByIdAndRemove(id);
+      const result = await collection.findByIdAndRemove({_id: id});
   
       if (result) {
-        req.session.message = {
+        req.session.message1 = {
           type: 'success',
           message: 'User deleted successfully',
-        };
+          
+        }
+        res.redirect('/admin');
       } else {
         res.json({ message: 'User not found' });
       }
   
-      res.redirect('/adminDashboard');
     } catch (err) {
       console.error('Error deleting user: ', err);
       res.json({ message: err.message });
     }
   });
   
+
+  router.get("/logout", (req, res) => {
+    req.session.destroy(function (err) {
+        if (err) {
+          console.log(err);
+          res.send("Error");
+        } else {
+          console.log("logout successful");
+          res.status(200)
+          res.redirect('/admin')
+          
+        }
+      });
+})
 
 // exporting the module
 module.exports = router
