@@ -27,6 +27,7 @@ const port = 3000;
 app.use(express.urlencoded({extended : true}))
 app.use(express.json())
 
+
 // session handleing 
 app.use(session({
     secret : ['mysecretkey','ujtyyt','sffddfg','dgdgdg','gyrtyr'],
@@ -48,14 +49,16 @@ app.use(express.static('public'))
 app.set('view engine','ejs')
 app.set('views',path.join(__dirname,'views'))
 
+// cleaing the cache
+app.use((req, res, next)=>{
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    next()
+  })
+
 // setting the middlewares
 app.use('/',loginRouter)
 app.use('/home',loginRouter)
 app.use('/signup',signupRouter)
-// app.use('/adminDashboard',adminRouter)
-// app.use('/adminDashboard',adminRouter)
-// app.use('/adminDashboard',adminDashRouter)
-// app.use('/adminDashboard/update',adminDashRouter)
 app.use('/admin',adminDashRouter)
 
 
