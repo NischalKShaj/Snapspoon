@@ -28,18 +28,6 @@ router.post('/', async(req, res)=>{
     }
     res.redirect('/');
 })
-// console.log(data);
 
-// data.save((err)=>{
-//     if(err){
-//         res.json({message : err.message,type : 'danger'})
-//     } else {
-//         req.session.message = {
-//             type : 'sucess',
-//             message : 'User added successfully'
-//         }
-//         res.redirect('/')
-//     }
-// })
 
 module.exports = router
