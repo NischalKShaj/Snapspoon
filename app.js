@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const session = require('express-session')
 
 // importing the local modules
-const adminRouter = require('./routes/admin')
+
 const loginRouter = require('./routes/login')
 const signupRouter = require('./routes/signup')
 const adminDashRouter = require('./routes/adminDashboard')

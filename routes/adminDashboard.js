@@ -37,15 +37,21 @@ router.post('/',async(req, res)=>{
             res.redirect('/admin')
         }
         else{
-            console.log(ss);
-
+           
+            req.session.message = {
+                type : 'warning',
+                message : 'Invalid admin credentials !'
+            } 
             res.redirect('/')
         }
     }
     catch{
-        console.log(ss);
-
-        res.send('errrr')
+     
+        req.session.message = {
+            type : 'warning',
+            message : 'Invalid admin credentials !'
+        } 
+        res.redirect('/')
     }
 
 })

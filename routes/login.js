@@ -29,7 +29,11 @@ router.post('/',async(req, res)=>{
         } else {
             res.redirect('/')
         }
-    }catch{                          //if the user is not found then login page will be rendered
+    }catch{ 
+        req.session.message = {
+            type : 'warning',
+            message : 'Invalid user details !'
+        }                         //if the user is not found then login page will be rendered
         res.redirect('/')
     }
 })
