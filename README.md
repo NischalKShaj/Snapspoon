@@ -26,4 +26,37 @@ This project focuses on designing and implementing a secure login system with co
    - The system ensures efficient session management for a smooth user experience.
    - Sessions are securely handled, providing a seamless login/logout process.
 
+## Setup Instructions
+
+To run the project locally, follow these steps:
+
+1. **Clone the Repository:**
+   ```
+   git clone  https://github.com/NischalKShaj/Snapspoon.git
+
+   ```
+
+2. **Install Dependencies:**
+   ```
+   npm install
+   ```
+
+3. **Configure Environment Variables:**
+   - Create a `.env` file based on the provided `.env.example`.
+   - Set necessary environment variables such as MongoDB connection details and JWT secret.
+
+4. **Run the Application:**
+   ```
+   npm start
+   ```
+
+5. **Access the Application:**
+   - Open your web browser and navigate to `http://localhost:3000` or the specified port.
+
+## Additional Notes
+
+- Ensure that MongoDB is installed and running.
+- Customize the EJS templates and stylesheets as needed for your application's design.
+
+
 Feel free to contribute, report issues, or suggest improvements!
